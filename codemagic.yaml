@@ -15,6 +15,10 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
+      - name: Create Dummy Keystore File
+        script: |
+          # Yeh step automatic missing file ka error khatam kar dega
+          touch my-upload-key.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
