@@ -11,15 +11,17 @@ workflows:
         - push
       branch_patterns:
         - pattern: 'main'
-    android_signing:
-      keystore: $CM_KEYSTORE
-      keystore_password: $CM_KEYSTORE_PASSWOR
-      key_alias: $CM_KEY_ALIAS
-      key_password: $CM_KEY_PASSWORD
     scripts:
+      - name: Set up code signing
+        script: |
+          echo $CM_KEYSTORE | base64 --decode > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
-          ./gradlew bundleRelease
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=/tmp/keystore.jks \
+            -Pandroid.injected.signing.store.password=$CM_KEYSTORE_PASSWOR \
+            -Pandroid.injected.signing.key.alias=$CM_KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD
     artifacts:
       - app/build/outputs/bundle/release/*.aab
