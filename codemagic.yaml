@@ -15,6 +15,10 @@ workflows:
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
-          ./gradlew bundleRelease
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=../my-release-key.jks \
+            -Pandroid.injected.signing.store.password=admin204060@ \
+            -Pandroid.injected.signing.key.alias=my-alias \
+            -Pandroid.injected.signing.key.password=admin204060@
     artifacts:
       - app/build/outputs/bundle/release/*.aab
