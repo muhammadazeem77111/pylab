@@ -15,6 +15,9 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
+      - name: Set up code signing file
+        script: |
+          echo $CM_KEYSTORE | base64 --decode > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
