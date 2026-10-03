@@ -3,9 +3,6 @@ workflows:
     name: Android Release Build
     instance_type: mac_mini_m1
     max_build_duration: 60
-    environment:
-      groups:
-        - keystore_credentials
     triggering:
       events:
         - push
@@ -15,16 +12,9 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
-      - name: Decode Perfect Keystore File
-        script: |
-          echo "$CM_KEYSTORE" | tr -d '\n' | tr -d ' ' | base64 --decode > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
-          ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file=/tmp/keystore.jks \
-            -Pandroid.injected.signing.store.password=$CM_KEYSTORE_PASSWOR \
-            -Pandroid.injected.signing.key.alias=$CM_KEY_ALIAS \
-            -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD
+          ./gradlew bundleRelease
     artifacts:
       - app/build/outputs/bundle/release/*.aab
