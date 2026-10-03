@@ -1,0 +1,26 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+  <group android:scaleX="0.7"
+         android:scaleY="0.7"
+         android:translateX="16.2"
+         android:translateY="16.2">
+    <!-- Code Window Background -->
+    <path
+        android:fillColor="#151c36"
+        android:pathData="M10,14 C10,11.79 11.79,10 14,10 L94,10 C96.21,10 98,11.79 98,14 L98,94 C98,96.21 96.21,98 94,98 L14,98 C11.79,98 10,96.21 10,94 Z"/>
+    <!-- Window Dots -->
+    <path android:fillColor="#FF5F56" android:pathData="M18,18 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <path android:fillColor="#FFBD2E" android:pathData="M28,18 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <path android:fillColor="#27C93F" android:pathData="M38,18 m-3,0 a3,3 0,1 1,6 0 a3,3 0,1 1,-6 0"/>
+    <!-- Code Lines -->
+    <path android:fillColor="#38BDF8" android:pathData="M22,34 L54,34 L54,38 L22,38 Z"/>
+    <path android:fillColor="#FACC15" android:pathData="M22,46 L70,46 L70,50 L22,50 Z"/>
+    <path android:fillColor="#F1F5F9" android:pathData="M22,58 L60,58 L60,62 L22,62 Z"/>
+    <!-- Play Badge -->
+    <path android:fillColor="#0ea5e9" android:pathData="M72,68 m-16,0 a16,16 0,1 1,32 0 a16,16 0,1 1,-32 0"/>
+    <path android:fillColor="#FFFFFF" android:pathData="M66,60 L82,68 L66,76 Z"/>
+  </group>
+</vector>
