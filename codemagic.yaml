@@ -15,9 +15,9 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
-      - name: Decode New Keystore File Stricly
+      - name: Extract Certificate File
         script: |
-          echo "$CM_KEYSTORE" | tr -d '\n' | tr -d ' ' | base64 --decode > /tmp/keystore.jks
+          echo "$CM_KEYSTORE" > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
