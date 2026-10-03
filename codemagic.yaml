@@ -14,15 +14,17 @@ workflows:
           gradle wrapper --gradle-version 9.3.1
       - name: Move Keystore to App Folder
         script: |
-          # Yeh step file ko sahi directory me copy kar dega taake Gradle ko mil jaye
           cp my-release-key.jks app/ || true
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
+          # Yeh command automatic key ke andar se asli alias ka naam nikal legi
+          EXTracted_ALIAS=$(keytool -list -v -keystore my-release-key.jks -storepass admin204060@ | grep "Alias name:" | head -n 1 | awk -F': ' '{print $2}' | xargs)
+          
           ./gradlew bundleRelease \
             -Pandroid.injected.signing.store.file=my-release-key.jks \
             -Pandroid.injected.signing.store.password=admin204060@ \
-            -Pandroid.injected.signing.key.alias=my-alias \
+            -Pandroid.injected.signing.key.alias="$EXTracted_ALIAS" \
             -Pandroid.injected.signing.key.password=admin204060@
     artifacts:
       - app/build/outputs/bundle/release/*.aab
