@@ -15,10 +15,9 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
-      - name: Set up code signing file
+      - name: Decode New Keystore File
         script: |
-          # Agar text format me certificate ho to use sahi se extract karega
-          echo "$CM_KEYSTORE" > /tmp/keystore.jks
+          echo "$CM_KEYSTORE" | base64 --decode > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
