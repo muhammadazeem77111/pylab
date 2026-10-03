@@ -1,0 +1,25 @@
+workflows:
+  android-release-pipeline:
+    name: Android Signed Release Build (.aab)
+    instance_type: mac_mini_m1
+    max_build_duration: 60
+    environment:
+      groups:
+        - keystore_credentials
+    triggering:
+      events:
+        - push
+      branch_patterns:
+        - pattern: 'main'
+    android_signing:
+      keystore: $CM_KEYSTORE
+      keystore_password: $CM_KEYSTORE_PASSWORD
+      key_alias: $CM_KEY_ALIAS
+      key_password: $CM_KEY_PASSWORD
+    scripts:
+      - name: Build Android App Bundle (.aab)
+        script: |
+          chmod +x gradlew
+          ./gradlew bundleRelease
+    artifacts:
+      - app/build/outputs/bundle/release/*.aab
