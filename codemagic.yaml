@@ -15,16 +15,13 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
-      - name: Extract Certificate File
-        script: |
-          echo "$CM_KEYSTORE" > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
           ./gradlew bundleRelease \
-            -Pandroid.injected.signing.store.file=/tmp/keystore.jks \
-            -Pandroid.injected.signing.store.password=$CM_KEYSTORE_PASSWOR \
-            -Pandroid.injected.signing.key.alias=$CM_KEY_ALIAS \
-            -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD
+            -Pandroid.injected.signing.store.file=none \
+            -Pandroid.injected.signing.store.password=none \
+            -Pandroid.injected.signing.key.alias=none \
+            -Pandroid.injected.signing.key.password=none
     artifacts:
       - app/build/outputs/bundle/release/*.aab
