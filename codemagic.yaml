@@ -13,7 +13,7 @@ workflows:
         - pattern: 'main'
     android_signing:
       keystore: $CM_KEYSTORE
-      keystore_password: $CM_KEYSTORE_PASSWORD
+      keystore_password: $CM_KEYSTORE_PASSWOR
       key_alias: $CM_KEY_ALIAS
       key_password: $CM_KEY_PASSWORD
     scripts:
