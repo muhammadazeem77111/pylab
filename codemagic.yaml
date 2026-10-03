@@ -15,14 +15,16 @@ workflows:
       - name: Generate Gradle Wrapper 9.3.1
         script: |
           gradle wrapper --gradle-version 9.3.1
-      - name: Create Dummy Keystore File
+      - name: Decode Perfect Keystore File
         script: |
-          # Yeh step automatic missing file ka error khatam kar dega
-          touch my-upload-key.jks
+          echo "$CM_KEYSTORE" | tr -d '\n' | tr -d ' ' | base64 --decode > /tmp/keystore.jks
       - name: Build Android App Bundle (.aab)
         script: |
           chmod +x gradlew
-          ./gradlew assembleRelease
+          ./gradlew bundleRelease \
+            -Pandroid.injected.signing.store.file=/tmp/keystore.jks \
+            -Pandroid.injected.signing.store.password=$CM_KEYSTORE_PASSWOR \
+            -Pandroid.injected.signing.key.alias=$CM_KEY_ALIAS \
+            -Pandroid.injected.signing.key.password=$CM_KEY_PASSWORD
     artifacts:
       - app/build/outputs/bundle/release/*.aab
-      - app/build/outputs/apk/release/*.apk
